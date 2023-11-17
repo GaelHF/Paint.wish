@@ -5,10 +5,15 @@
 #Bibliothèque
 import turtle
 import tkinter
-from typing import Text
+from sketchpy import canvas
+import requests
+from PIL import Image
 global square
 
 #Variables
+image = open('img.jpg', 'w')
+image.close()
+
 t = turtle.Turtle()
 screen = turtle.Screen()
 screen.setup(500, 500)
@@ -22,6 +27,7 @@ current_Cote = 0
 current_Toollangages = 0
 isFilling = False
 current_Text = ""
+current_URL = ""
 nbr1=0
 nbr2=0
 answer=0
@@ -564,6 +570,31 @@ def langages():
   ChangeButton = tkinter.Button(langages, text="Changer", command=change_lang)
   ChangeButton.pack()
 
+def draw():
+  #Change la couleur
+  draw = tkinter.Toplevel(fenetre)
+  draw.title("Image")
+  draw.geometry("300x100")
+  canvas1 = tkinter.Canvas(draw, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(draw)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_draw():
+    global current_URL
+    current_URL = entry1.get()
+    data = requests.get(current_URL).content
+    f = open('img.jpg', 'wb')
+    f.write(data)
+    f.close()
+    draw.destroy()
+    img = canvas.sketch_from_image('./img.jpg')
+    img.draw(threshold = 127)
+
+  drawButton = tkinter.Button(draw, text="Dessiner", command=change_draw)
+  drawButton.pack()
+
+
 #Titres
 screen.title('Paint.wish')
 
@@ -573,6 +604,9 @@ def generate_button_fr():
   #Créer les buttons
   credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
   credits.pack()
+
+  drawButton = tkinter.Button(fenetre, text="Dessiner depuis une URL", command=draw)
+  drawButton.pack()
 
   langButton = tkinter.Button(fenetre, text="Changer la langue", command=langages)
   langButton.pack()
@@ -649,6 +683,9 @@ def generate_button_en():
 
   credits = tkinter.Label(fenetre, text="Made by: Gaël Hébert-Furoy")
   credits.pack()
+
+  drawButton = tkinter.Button(fenetre, text="Draw from an URL", command=draw)
+  drawButton.pack()
 
   langButton = tkinter.Button(fenetre, text="Change language", command=langages)
   langButton.pack()
