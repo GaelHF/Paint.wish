@@ -1,32 +1,172 @@
 #Crédits:
-# Software Engineer: Gaël Hébert-Furoy
-# ~500 lignes de code
 # https://www.geeksforgeeks.org/
+# ~750 lignes de code
 
 #Bibliothèque
 import turtle
 import tkinter
+from typing import Text
+global square
 
 #Variables
 t = turtle.Turtle()
 screen = turtle.Screen()
 screen.setup(500, 500)
-screen.colormode(255)
 fenetre = tkinter.Tk()
 
+current_Lang = "fr"
 current_Color = "black"
 current_FillColor = "black"
 current_Longeur = 100
 current_Cote = 0
-current_ToolSize = 0
+current_Toollangages = 0
 isFilling = False
 current_Text = ""
+nbr1=0
+nbr2=0
+answer=0
 
 pos_x = 0
 pos_y = 0
 
 t.speed(-1)
 
+#UTILITAIRES
+class CalculDeMath():
+   def addition(number1, number2):
+      return(int(number1) + int(number2))
+   def soustraction(number1, number2):
+      return(int(number1) - int(number2))
+   def multiplication(number1, number2):
+      return(int(number1) * int(number2))
+   def division(number1, number2):
+      return(int(number1) / int(number2))
+#FONCTIONS
+
+
+def nb1():
+  #Fait des calculs (1er chiffre)
+  nbr = tkinter.Toplevel(fenetre)
+  nbr.title("1er chiffre")
+  nbr.geometry("300x100")
+  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(nbr)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_nbr():
+    global nbr1
+    if(entry1.get() == "ANS"):
+      nbr1 = result
+    else:
+      nbr1 = int(entry1.get())
+    nbr.destroy()
+    nb2()
+
+  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+  ChangeButton.pack()
+
+
+def nb2():
+  #Fait des calculs (2e chiffre)
+  nbr = tkinter.Toplevel(fenetre)
+  nbr.title("2e chiffre")
+  nbr.geometry("300x100")
+  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(nbr)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_nbr():
+    global nbr2
+    if(entry1.get() == "ANS"):
+      nbr2 = result
+    else:
+      nbr2 = int(entry1.get())
+    nbr.destroy()
+    method()
+
+  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+  ChangeButton.pack()
+
+
+def method():
+  #Fait des calculs (method)
+  nbr = tkinter.Toplevel(fenetre)
+  nbr.title("Méthode")
+  nbr.geometry("300x100")
+  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(nbr)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_nbr():
+    global nbr1
+    global nbr2
+    global result
+    metod = entry1.get()
+    if metod == "+":
+      result = CalculDeMath.addition(nbr1, nbr2)
+    elif metod == "-":
+      result = CalculDeMath.soustraction(nbr1, nbr2)
+    elif metod == "*":
+      result = CalculDeMath.multiplication(nbr1, nbr2)
+    elif metod == "/":
+      result = CalculDeMath.division(nbr1, nbr2)
+    answer = tkinter.Button(nbr, text=result)
+    answer.pack()
+    entry1.delete(0, 'end')
+
+  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+  ChangeButton.pack()
+
+def grid():
+  hauteur = -250
+  for i in range(10):
+    t.penup()
+    t.goto(-250, hauteur)
+    t.pendown()
+    for i in range(10):
+      for i in range(4):
+        t.forward(50)
+        t.left(90)
+      t.forward(50)
+    hauteur += 50
+  t.goto(0, 0)
+
+def forw():
+  #Change la couleur
+  forw = tkinter.Toplevel(fenetre)
+  forw.title("Forward")
+  forw.geometry("300x100")
+  canvas1 = tkinter.Canvas(forw, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(forw)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_forw():
+    t.forward(int(entry1.get()))
+    forw.destroy()
+
+  ChangeButton = tkinter.Button(forw, text="Changer", command=change_forw)
+  ChangeButton.pack()
+
+def backw():
+  #Change la couleur
+  backw = tkinter.Toplevel(fenetre)
+  backw.title("Backward")
+  backw.geometry("300x100")
+  canvas1 = tkinter.Canvas(backw, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(backw)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_backw():
+    t.backward(int(entry1.get()))
+    backw.destroy()
+
+  ChangeButton = tkinter.Button(backw, text="Changer", command=change_backw)
+  ChangeButton.pack()
 
 def triangle():
   global isFilling
@@ -40,7 +180,6 @@ def triangle():
   if isFilling == True:
     t.end_fill()
 
-
 def carre():
   global isFilling
   #Fait un triangle
@@ -53,16 +192,13 @@ def carre():
   if isFilling == True:
     t.end_fill()
 
-
 def left():
   #Tourne de 45 degrés a gauche
   t.left(45)
 
-
 def right():
   #Tourne de 45 degrés a droite
   t.right(45)
-
 
 def reset():
   #Efface tous
@@ -71,33 +207,31 @@ def reset():
   global current_FillColor
   global current_Longeur
   global current_Cote
-  global current_ToolSize
+  global current_Toollangages
   global isFilling
   global pos_x
   global pos_y
+  global current_Lang
+  current_Lang = "fr"
   current_Text = ""
   current_Color = ""
   current_FillColor = ""
   current_Longeur = 100
   current_Cote = 0
-  current_ToolSize = 0
+  current_Toollangages = 0
   isFilling = False
   pos_x = 0
   pos_y = 0
   t.clear()
   t.reset()
-  t.speed(-1)
-
 
 def dot():
   #Fait un point
-  t.dot(current_ToolSize)
-
+  t.dot(current_Toollangages)
 
 def circle():
   #Fait un cercle
   t.circle(current_Longeur)
-
 
 def toggleFill():
   #Changer le mode remplissage
@@ -107,19 +241,16 @@ def toggleFill():
   elif isFilling == False:
     isFilling = True
 
-
 def goto():
   #Va sans déssiner
   t.penup()
   t.goto(pos_x, pos_y)
   t.pendown()
 
-
 def gotoanddraw():
   #Va et déssine
   t.goto(pos_x, pos_y)
   t.pendown()
-
 
 def color():
   #Change la couleur
@@ -140,7 +271,6 @@ def color():
   ChangeButton = tkinter.Button(color, text="Changer", command=change_color)
   ChangeButton.pack()
 
-
 def fill_color():
   #Change la couleur
   fill_color = tkinter.Toplevel(fenetre)
@@ -156,9 +286,8 @@ def fill_color():
     current_FillColor = str(entry1.get())
     fill_color.destroy()
 
-  ChangeButton = tkinter.Button(fill_color, text="Changer", command=fill_color_change)
+  ChangeButton = tkinter.Button(fill_color, text="Changer",command=fill_color_change)
   ChangeButton.pack()
-
 
 def length():
   #Change le longeur
@@ -177,27 +306,6 @@ def length():
 
   ChangeButton = tkinter.Button(length, text="Changer", command=change_length)
   ChangeButton.pack()
-
-
-def size():
-  #Change la taille du pinceau
-  size = tkinter.Toplevel(fenetre)
-  size.title("Taille")
-  size.geometry("300x100")
-  canvas1 = tkinter.Canvas(size, width=50, height=50)
-  canvas1.pack()
-  entry1 = tkinter.Entry(size)
-  canvas1.create_window(0, 10, window=entry1)
-
-  def change_color():
-    global current_ToolSize
-    current_ToolSize = int(entry1.get())
-    t.pensize(current_ToolSize)
-    size.destroy()
-
-  ChangeButton = tkinter.Button(size, text="Changer", command=change_color)
-  ChangeButton.pack()
-
 
 def shape():
   #Dessine un forme selon le nombre de cote
@@ -226,11 +334,9 @@ def shape():
   ChangeButton = tkinter.Button(shape, text="Enregistrer", command=change_color)
   ChangeButton.pack()
 
-
 def rotation():
   #Change la rotation
   t.setheading(0)
-
 
 def write():
   #Écrit du texte
@@ -246,10 +352,17 @@ def write():
     global current_Text
     current_Text = str(entry1.get())
     write.destroy()
-    t.write(current_Text, font=("Verdana", 15, "normal"))
+    turtle.write(current_Text, font=("Verdana", 15, "normal"))
 
   ChangeButton = tkinter.Button(write, text="Écrire", command=change_color)
   ChangeButton.pack()
+
+def dragging(x, y):
+  #dessiner en glissant turtle
+  t.ondrag(None)
+  t.setheading(t.towards(x, y))
+  t.goto(x, y)
+  t.ondrag(dragging)
 
 def minecraft():
     #fait un dessin de minecraft
@@ -372,24 +485,107 @@ def minecraft():
         t.forward(50)
         t.left(90)
     t.end_fill()
-    
-def dragging(x, y):
-  #dessiner en glissant turtle
-  t.ondrag(None)
-  t.setheading(t.towards(x, y))
-  t.goto(x, y)
-  t.ondrag(dragging)
 
+    def resetPos():
+      #reset la position
+      global hauteur
+      t.penup()
+      t.goto(float(-250.00), float(hauteur))
+      t.pendown()
+      
+    def update_hauteur(haut):
+      global hauteur
+      #change la hauteur
+      hauteur = hauteur+haut
+
+    #Ciel
+    resetPos()
+    t.fillcolor("skyblue")
+    t.begin_fill()
+    for i in range(4):
+        t.forward(500)
+        t.left(90)
+    t.end_fill()
+
+    #Sol
+    t.width(2.5)
+    t.color("#4d2500")
+    t.fillcolor("#9e5410")
+    for i in range(10):
+        t.begin_fill()
+        for i in range(2):
+            t.forward(50)
+            t.left(90)
+            t.forward(40)
+            t.left(90)
+        t.end_fill()
+        t.forward(50)
+
+    #Gazon
+    update_hauteur(40)
+    resetPos()
+    t.width(1.5)
+    t.color("#125400")
+    t.fillcolor("#27b300")
+    for i in range(10):
+        t.begin_fill()
+        for i in range(2):
+            t.forward(50)
+            t.left(90)
+            t.forward(10)
+            t.left(90)
+        t.end_fill()
+        t.forward(50)
+
+def langages():
+  #Change la langue des bouttons
+  langages = tkinter.Toplevel(fenetre)
+  langages.title("Langages")
+  langages.geometry("300x100")
+  canvas1 = tkinter.Canvas(langages, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(langages)
+  label1 = tkinter.Label(langages, text="FR: Français / EN: English")
+  label1.pack()
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_lang():
+    global current_Lang
+    current_Lang = str(entry1.get())
+    if(current_Lang == "FR" or current_Lang == "fr"):
+       generate_button_fr()
+       main_loop()
+    elif(current_Lang == "EN" or current_Lang == "en"):
+       generate_button_en()
+       main_loop()
+  
+    langages.destroy()
+
+  ChangeButton = tkinter.Button(langages, text="Changer", command=change_lang)
+  ChangeButton.pack()
 
 #Titres
-fenetre.title('Commandes')
 screen.title('Paint.wish')
 
-
-def generate_button():
+def generate_button_fr():
+  clearCommands()
+  fenetre.title('Commandes')
   #Créer les buttons
   credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
   credits.pack()
+
+  langButton = tkinter.Button(fenetre, text="Changer la langue", command=langages)
+  langButton.pack()
+
+  calcButton = tkinter.Button(fenetre, text="Calculer", command=nb1)
+  calcButton.pack()
+
+  forwButton = tkinter.Button(fenetre, text="Avancer", command=forw)
+  forwButton.pack()
+
+  backwButton = tkinter.Button(fenetre, text="Reculer", command=backw)
+  backwButton.pack()
+
   triangleButton = tkinter.Button(fenetre, text="Triangle", command=triangle)
   triangleButton.pack()
 
@@ -401,7 +597,7 @@ def generate_button():
 
   RightButton = tkinter.Button(fenetre, text="-->", command=right)
   RightButton.pack()
-  rotButton = tkinter.Button(fenetre, text="Reset Rotation", command=rotation)
+  rotButton = tkinter.Button(fenetre, text="Angle par défaut", command=rotation)
   rotButton.pack()
 
   GotoButton = tkinter.Button(fenetre, text="Aller à", command=goto)
@@ -413,39 +609,120 @@ def generate_button():
   ColorButton = tkinter.Button(fenetre, text="Couleur", command=color)
   ColorButton.pack()
 
-  SizeButton = tkinter.Button(fenetre, text="Longeur", command=length)
-  SizeButton.pack()
+  langagesButton = tkinter.Button(fenetre, text="Longeur", command=length)
+  langagesButton.pack()
 
-  ToggleFillButton = tkinter.Button(fenetre, text="Switch mode remplissage", command=toggleFill)
+  ToggleFillButton = tkinter.Button(fenetre, text="Activer/Désactiver mode remplissage", command=toggleFill)
   ToggleFillButton.pack()
 
   FillColorButton = tkinter.Button(fenetre, text="Couleur de remplissage", command=fill_color)
   FillColorButton.pack()
 
-  BrushSizeButton = tkinter.Button(fenetre, text="Taille du pinceau", command=size)
-  BrushSizeButton.pack()
+  BrushlangagesButton = tkinter.Button(fenetre, text="Taille du pinceau", command=langages)
+  BrushlangagesButton.pack()
 
   dotButton = tkinter.Button(fenetre, text="Point", command=dot)
   dotButton.pack()
-  
+
   circleButton = tkinter.Button(fenetre, text="Cerlce", command=circle)
   circleButton.pack()
-  
-  writeButton = tkinter.Button(fenetre, text="Texte", command=write)
+
+  writeButton = tkinter.Button(fenetre, text="Écrire", command=write)
   writeButton.pack()
-  
+
   shapeButton = tkinter.Button(fenetre, text="Forme", command=shape)
   shapeButton.pack()
-  
+
   resetButton = tkinter.Button(fenetre, text="Effacer tous", command=reset)
   resetButton.pack()
-  
-  MinecraftButton = tkinter.Button(fenetre, text="Minecraft", command=minecraft)
-  MinecraftButton.pack()
-  
+
+  resetButton = tkinter.Button(fenetre, text="Minecraft...", command=minecraft)
+  resetButton.pack()
+
   credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
   credits.pack()
 
+def generate_button_en():
+  clearCommands()
+  fenetre.title("Commands")
+  #Créer les buttons
+
+  credits = tkinter.Label(fenetre, text="Made by: Gaël Hébert-Furoy")
+  credits.pack()
+
+  langButton = tkinter.Button(fenetre, text="Change language", command=langages)
+  langButton.pack()
+
+  calcButton = tkinter.Button(fenetre, text="Calculate", command=nb1)
+  calcButton.pack()
+   
+  forwButton = tkinter.Button(fenetre, text="Forward", command=forw)
+  forwButton.pack()
+
+  backwButton = tkinter.Button(fenetre, text="Backward", command=backw)
+  backwButton.pack()
+
+  triangleButton = tkinter.Button(fenetre, text="Triangle", command=triangle)
+  triangleButton.pack()
+
+  SquareButton = tkinter.Button(fenetre, text="Square", command=carre)
+  SquareButton.pack()
+
+  LeftButton = tkinter.Button(fenetre, text="<--", command=left)
+  LeftButton.pack()
+
+  RightButton = tkinter.Button(fenetre, text="-->", command=right)
+  RightButton.pack()
+  rotButton = tkinter.Button(fenetre, text="Default angle", command=rotation)
+  rotButton.pack()
+
+  GotoButton = tkinter.Button(fenetre, text="Goto", command=goto)
+  GotoButton.pack()
+
+  GotodButton = tkinter.Button(fenetre, text="Goto and draw", command=gotoanddraw)
+  GotodButton.pack()
+
+  ColorButton = tkinter.Button(fenetre, text="Color", command=color)
+  ColorButton.pack()
+
+  langagesButton = tkinter.Button(fenetre, text="Lenght", command=length)
+  langagesButton.pack()
+
+  ToggleFillButton = tkinter.Button(fenetre, text="Toggle fill mode", command=toggleFill)
+  ToggleFillButton.pack()
+
+  FillColorButton = tkinter.Button(fenetre, text="Filling color", command=fill_color)
+  FillColorButton.pack()
+
+  BrushlangagesButton = tkinter.Button(fenetre, text="Tool size", command=langages)
+  BrushlangagesButton.pack()
+
+  dotButton = tkinter.Button(fenetre, text="Dot", command=dot)
+  dotButton.pack()
+
+  circleButton = tkinter.Button(fenetre, text="Circle", command=circle)
+  circleButton.pack()
+
+  writeButton = tkinter.Button(fenetre, text="Write", command=write)
+  writeButton.pack()
+
+  shapeButton = tkinter.Button(fenetre, text="Shape", command=shape)
+  shapeButton.pack()
+
+  resetButton = tkinter.Button(fenetre, text="Clear all", command=reset)
+  resetButton.pack()
+
+  resetButton = tkinter.Button(fenetre, text="Minecraft...", command=minecraft)
+  resetButton.pack()
+
+  credits = tkinter.Label(fenetre, text="Made by: Gaël Hébert-Furoy")
+  credits.pack()
+
+def clearCommands():
+   global fenetre
+   #Efface la fenetre de tkinter et en fait une nouvelle.
+   fenetre.destroy()
+   fenetre = tkinter.Tk()
 
 #Goto
 def ClickLeft(x, y):
@@ -467,5 +744,5 @@ def main_loop():
   fenetre.mainloop()
 
 
-generate_button()
+generate_button_fr()
 main_loop()
