@@ -588,8 +588,8 @@ def draw():
     f.write(data)
     f.close()
     draw.destroy()
-    img = canvas.sketch_from_image('./img.jpg')
-    img.draw(threshold = 127)
+    img = canvas.sketch_from_image('img.jpg')
+    img.draw(threshold = 127, pen = t)
 
   drawButton = tkinter.Button(draw, text="Dessiner", command=change_draw)
   drawButton.pack()
