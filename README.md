@@ -6,7 +6,7 @@ You know Paint from Microsoft right? I made it with Turtle and Tkinter in Python
 
 ## Authors
 
-- [@VAXS](https://www.github.com/Vaxs02)
+- [@VAXS](https://www.github.com/GaelHF)
 
 
 ![Logo](https://i.ibb.co/hW8bW4L/paintwish.webp)
