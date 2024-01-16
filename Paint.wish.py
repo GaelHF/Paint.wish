@@ -1,6 +1,7 @@
 #Crédits:
+# Software Engineer : @GaelHF
 # https://www.geeksforgeeks.org/
-# ~750 lignes de code
+# ~800 lignes de code
 
 #Bibliothèque
 import turtle
@@ -9,12 +10,14 @@ from sketchpy import canvas
 import requests
 from PIL import Image
 global square
+import customtkinter
 
 #Variables
 image = open('img.jpg', 'w')
 image.close()
 
 t = turtle.Turtle()
+turtle.colormode(255)
 screen = turtle.Screen()
 screen.setup(500, 500)
 fenetre = tkinter.Tk()
@@ -600,160 +603,159 @@ screen.title('Paint.wish')
 
 def generate_button_fr():
   clearCommands()
-  fenetre.title('Commandes')
+  fenetre.title("Commandes")
+  customtkinter.set_appearance_mode('Dark')
   #Créer les buttons
-  credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
-  credits.pack()
 
-  drawButton = tkinter.Button(fenetre, text="Dessiner depuis une URL", command=draw)
-  drawButton.pack()
+  credits =customtkinter.CTkLabel(fenetre, text="Créé: Gaël Hébert-Furoy", text_color='black')
+  credits.pack(pady=5)
 
-  langButton = tkinter.Button(fenetre, text="Changer la langue", command=langages)
-  langButton.pack()
+  bdraw = customtkinter.CTkButton(text="Dessiner depuis URL",master=fenetre, corner_radius=10, command=draw)
+  bdraw.pack(pady=5, anchor=tkinter.CENTER)
 
-  calcButton = tkinter.Button(fenetre, text="Calculer", command=nb1)
-  calcButton.pack()
+  blang = customtkinter.CTkButton(text="Langage",master=fenetre, corner_radius=10, command=langages)
+  blang.pack(pady=5, anchor=tkinter.CENTER)
 
-  forwButton = tkinter.Button(fenetre, text="Avancer", command=forw)
-  forwButton.pack()
+  bcalc = customtkinter.CTkButton(text="Calculer",master=fenetre, corner_radius=10, command=nb1)
+  bcalc.pack(pady=5, anchor=tkinter.CENTER)
 
-  backwButton = tkinter.Button(fenetre, text="Reculer", command=backw)
-  backwButton.pack()
+  btriangle = customtkinter.CTkButton(text="Triangle",master=fenetre, corner_radius=10, command=triangle)
+  btriangle.pack(pady=5, anchor=tkinter.CENTER)
 
-  triangleButton = tkinter.Button(fenetre, text="Triangle", command=triangle)
-  triangleButton.pack()
+  bsquare = customtkinter.CTkButton(text="Carré",master=fenetre, corner_radius=10, command=carre)
+  bsquare.pack(pady=5, anchor=tkinter.CENTER)
 
-  SquareButton = tkinter.Button(fenetre, text="Carré", command=carre)
-  SquareButton.pack()
+  bforw = customtkinter.CTkButton(text="Avancer",master=fenetre, corner_radius=10, command=forw)
+  bforw.pack(pady=5, anchor=tkinter.CENTER)
 
-  LeftButton = tkinter.Button(fenetre, text="<--", command=left)
-  LeftButton.pack()
+  bbackw = customtkinter.CTkButton(text="Reculer",master=fenetre, corner_radius=10, command=backw)
+  bbackw.pack(pady=5, anchor=tkinter.CENTER)
 
-  RightButton = tkinter.Button(fenetre, text="-->", command=right)
-  RightButton.pack()
-  rotButton = tkinter.Button(fenetre, text="Angle par défaut", command=rotation)
-  rotButton.pack()
+  bleft = customtkinter.CTkButton(text="<--",master=fenetre, corner_radius=10, command=left)
+  bleft.pack(pady=5, anchor=tkinter.CENTER)
 
-  GotoButton = tkinter.Button(fenetre, text="Aller à", command=goto)
-  GotoButton.pack()
+  bright = customtkinter.CTkButton(text="-->",master=fenetre, corner_radius=10, command=right)
+  bright.pack(pady=5, anchor=tkinter.CENTER)
 
-  GotodButton = tkinter.Button(fenetre, text="Aller à et dessiner", command=gotoanddraw)
-  GotodButton.pack()
+  brot = customtkinter.CTkButton(text="Angle par défaut",master=fenetre, corner_radius=10, command=rotation)
+  brot.pack(pady=5, anchor=tkinter.CENTER)
 
-  ColorButton = tkinter.Button(fenetre, text="Couleur", command=color)
-  ColorButton.pack()
+  bgoto = customtkinter.CTkButton(text="Aller à",master=fenetre, corner_radius=10, command=goto)
+  bgoto.pack(pady=5, anchor=tkinter.CENTER)
 
-  langagesButton = tkinter.Button(fenetre, text="Longeur", command=length)
-  langagesButton.pack()
+  bgotod = customtkinter.CTkButton(text="Aller à et dessiner",master=fenetre, corner_radius=10, command=gotoanddraw)
+  bgotod.pack(pady=5, anchor=tkinter.CENTER)
 
-  ToggleFillButton = tkinter.Button(fenetre, text="Activer/Désactiver mode remplissage", command=toggleFill)
-  ToggleFillButton.pack()
+  bcolor = customtkinter.CTkButton(text="Couleur",master=fenetre, corner_radius=10, command=color)
+  bcolor.pack(pady=5, anchor=tkinter.CENTER)
 
-  FillColorButton = tkinter.Button(fenetre, text="Couleur de remplissage", command=fill_color)
-  FillColorButton.pack()
+  btoolsize = customtkinter.CTkButton(text="Taille de l'outil",master=fenetre, corner_radius=10, command=length)
+  btoolsize.pack(pady=5, anchor=tkinter.CENTER)
 
-  BrushlangagesButton = tkinter.Button(fenetre, text="Taille du pinceau", command=langages)
-  BrushlangagesButton.pack()
+  btogglefill = customtkinter.CTkButton(text="Activer/Désactiver Mode Remplissage",master=fenetre, corner_radius=10, command=toggleFill)
+  btogglefill.pack(pady=5, anchor=tkinter.CENTER)
 
-  dotButton = tkinter.Button(fenetre, text="Point", command=dot)
-  dotButton.pack()
+  bfillcolor = customtkinter.CTkButton(text="Couleur de remplissage",master=fenetre, corner_radius=10, command=fill_color)
+  bfillcolor.pack(pady=5, anchor=tkinter.CENTER)
 
-  circleButton = tkinter.Button(fenetre, text="Cerlce", command=circle)
-  circleButton.pack()
+  bdot = customtkinter.CTkButton(text="Point",master=fenetre, corner_radius=10, command=dot)
+  bdot.pack(pady=5, anchor=tkinter.CENTER)
 
-  writeButton = tkinter.Button(fenetre, text="Écrire", command=write)
-  writeButton.pack()
+  bcircle = customtkinter.CTkButton(text="Cercle",master=fenetre, corner_radius=10, command=circle)
+  bcircle.pack(pady=5, anchor=tkinter.CENTER)
 
-  shapeButton = tkinter.Button(fenetre, text="Forme", command=shape)
-  shapeButton.pack()
+  bwrite = customtkinter.CTkButton(text="Écrire",master=fenetre, corner_radius=10, command=write)
+  bwrite.pack(pady=5, anchor=tkinter.CENTER)
 
-  resetButton = tkinter.Button(fenetre, text="Effacer tous", command=reset)
-  resetButton.pack()
+  bshape = customtkinter.CTkButton(text="Forme",master=fenetre, corner_radius=10, command=shape)
+  bshape.pack(pady=5, anchor=tkinter.CENTER)
 
-  resetButton = tkinter.Button(fenetre, text="Minecraft...", command=minecraft)
-  resetButton.pack()
+  breset = customtkinter.CTkButton(text="Effacer tout",master=fenetre, corner_radius=10, command=reset)
+  breset.pack(pady=5, anchor=tkinter.CENTER)
 
-  credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
-  credits.pack()
+  bminecraft = customtkinter.CTkButton(text="Minecraft",master=fenetre, corner_radius=10, command=minecraft)
+  bminecraft.pack(pady=5, anchor=tkinter.CENTER)
+
+  credits =customtkinter.CTkLabel(fenetre, text="Créé par: Gaël Hébert-Furoy", text_color='black')
+  credits.pack(pady=5)
 
 def generate_button_en():
   clearCommands()
   fenetre.title("Commands")
+  customtkinter.set_appearance_mode('Dark')
   #Créer les buttons
 
-  credits = tkinter.Label(fenetre, text="Made by: Gaël Hébert-Furoy")
-  credits.pack()
+  credits =customtkinter.CTkLabel(fenetre, text="Made by: Gaël Hébert-Furoy", text_color='black')
+  credits.pack(pady=5)
 
-  drawButton = tkinter.Button(fenetre, text="Draw from an URL", command=draw)
-  drawButton.pack()
+  bdraw = customtkinter.CTkButton(text="Draw from URL",master=fenetre, corner_radius=10, command=draw)
+  bdraw.pack(pady=5, anchor=tkinter.CENTER)
 
-  langButton = tkinter.Button(fenetre, text="Change language", command=langages)
-  langButton.pack()
+  blang = customtkinter.CTkButton(text="Language",master=fenetre, corner_radius=10, command=langages)
+  blang.pack(pady=5, anchor=tkinter.CENTER)
 
-  calcButton = tkinter.Button(fenetre, text="Calculate", command=nb1)
-  calcButton.pack()
-   
-  forwButton = tkinter.Button(fenetre, text="Forward", command=forw)
-  forwButton.pack()
+  bcalc = customtkinter.CTkButton(text="Calculate",master=fenetre, corner_radius=10, command=nb1)
+  bcalc.pack(pady=5, anchor=tkinter.CENTER)
 
-  backwButton = tkinter.Button(fenetre, text="Backward", command=backw)
-  backwButton.pack()
+  btriangle = customtkinter.CTkButton(text="Triangle",master=fenetre, corner_radius=10, command=triangle)
+  btriangle.pack(pady=5, anchor=tkinter.CENTER)
 
-  triangleButton = tkinter.Button(fenetre, text="Triangle", command=triangle)
-  triangleButton.pack()
+  bsquare = customtkinter.CTkButton(text="Square",master=fenetre, corner_radius=10, command=carre)
+  bsquare.pack(pady=5, anchor=tkinter.CENTER)
 
-  SquareButton = tkinter.Button(fenetre, text="Square", command=carre)
-  SquareButton.pack()
+  bforw = customtkinter.CTkButton(text="Forward",master=fenetre, corner_radius=10, command=forw)
+  bforw.pack(pady=5, anchor=tkinter.CENTER)
 
-  LeftButton = tkinter.Button(fenetre, text="<--", command=left)
-  LeftButton.pack()
+  bbackw = customtkinter.CTkButton(text="Backward",master=fenetre, corner_radius=10, command=backw)
+  bbackw.pack(pady=5, anchor=tkinter.CENTER)
 
-  RightButton = tkinter.Button(fenetre, text="-->", command=right)
-  RightButton.pack()
-  rotButton = tkinter.Button(fenetre, text="Default angle", command=rotation)
-  rotButton.pack()
+  bleft = customtkinter.CTkButton(text="<--",master=fenetre, corner_radius=10, command=left)
+  bleft.pack(pady=5, anchor=tkinter.CENTER)
 
-  GotoButton = tkinter.Button(fenetre, text="Goto", command=goto)
-  GotoButton.pack()
+  bright = customtkinter.CTkButton(text="-->",master=fenetre, corner_radius=10, command=right)
+  bright.pack(pady=5, anchor=tkinter.CENTER)
 
-  GotodButton = tkinter.Button(fenetre, text="Goto and draw", command=gotoanddraw)
-  GotodButton.pack()
+  brot = customtkinter.CTkButton(text="Reset Angle",master=fenetre, corner_radius=10, command=rotation)
+  brot.pack(pady=5, anchor=tkinter.CENTER)
 
-  ColorButton = tkinter.Button(fenetre, text="Color", command=color)
-  ColorButton.pack()
+  bgoto = customtkinter.CTkButton(text="Move",master=fenetre, corner_radius=10, command=goto)
+  bgoto.pack(pady=5, anchor=tkinter.CENTER)
 
-  langagesButton = tkinter.Button(fenetre, text="Lenght", command=length)
-  langagesButton.pack()
+  bgotod = customtkinter.CTkButton(text="Move and Draw",master=fenetre, corner_radius=10, command=gotoanddraw)
+  bgotod.pack(pady=5, anchor=tkinter.CENTER)
 
-  ToggleFillButton = tkinter.Button(fenetre, text="Toggle fill mode", command=toggleFill)
-  ToggleFillButton.pack()
+  bcolor = customtkinter.CTkButton(text="Color",master=fenetre, corner_radius=10, command=color)
+  bcolor.pack(pady=5, anchor=tkinter.CENTER)
 
-  FillColorButton = tkinter.Button(fenetre, text="Filling color", command=fill_color)
-  FillColorButton.pack()
+  btoolsize = customtkinter.CTkButton(text="Tool Size",master=fenetre, corner_radius=10, command=length)
+  btoolsize.pack(pady=5, anchor=tkinter.CENTER)
 
-  BrushlangagesButton = tkinter.Button(fenetre, text="Tool size", command=langages)
-  BrushlangagesButton.pack()
+  btogglefill = customtkinter.CTkButton(text="Toggle Fill Mode",master=fenetre, corner_radius=10, command=toggleFill)
+  btogglefill.pack(pady=5, anchor=tkinter.CENTER)
 
-  dotButton = tkinter.Button(fenetre, text="Dot", command=dot)
-  dotButton.pack()
+  bfillcolor = customtkinter.CTkButton(text="Fill Color",master=fenetre, corner_radius=10, command=fill_color)
+  bfillcolor.pack(pady=5, anchor=tkinter.CENTER)
 
-  circleButton = tkinter.Button(fenetre, text="Circle", command=circle)
-  circleButton.pack()
+  bdot = customtkinter.CTkButton(text="Dot",master=fenetre, corner_radius=10, command=dot)
+  bdot.pack(pady=5, anchor=tkinter.CENTER)
 
-  writeButton = tkinter.Button(fenetre, text="Write", command=write)
-  writeButton.pack()
+  bcircle = customtkinter.CTkButton(text="Circle",master=fenetre, corner_radius=10, command=circle)
+  bcircle.pack(pady=5, anchor=tkinter.CENTER)
 
-  shapeButton = tkinter.Button(fenetre, text="Shape", command=shape)
-  shapeButton.pack()
+  bwrite = customtkinter.CTkButton(text="Write",master=fenetre, corner_radius=10, command=write)
+  bwrite.pack(pady=5, anchor=tkinter.CENTER)
 
-  resetButton = tkinter.Button(fenetre, text="Clear all", command=reset)
-  resetButton.pack()
+  bshape = customtkinter.CTkButton(text="Shape",master=fenetre, corner_radius=10, command=shape)
+  bshape.pack(pady=5, anchor=tkinter.CENTER)
 
-  resetButton = tkinter.Button(fenetre, text="Minecraft...", command=minecraft)
-  resetButton.pack()
+  breset = customtkinter.CTkButton(text="Clear All",master=fenetre, corner_radius=10, command=reset)
+  breset.pack(pady=5, anchor=tkinter.CENTER)
 
-  credits = tkinter.Label(fenetre, text="Made by: Gaël Hébert-Furoy")
-  credits.pack()
+  bminecraft = customtkinter.CTkButton(text="Minecraft",master=fenetre, corner_radius=10, command=minecraft)
+  bminecraft.pack(pady=5, anchor=tkinter.CENTER)
+
+  credits =customtkinter.CTkLabel(fenetre, text="Made by: Gaël Hébert-Furoy", text_color='black')
+  credits.pack(pady=5)
 
 def clearCommands():
    global fenetre
