@@ -1,4 +1,6 @@
-# THIS IS NEEDED TO WORK
+# This is the SketchPY Library that I modified, use it for a better experience.
+
+
 from tqdm import tqdm
 import turtle
 import numpy as np
