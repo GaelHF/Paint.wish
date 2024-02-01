@@ -8,7 +8,6 @@ import turtle
 import tkinter
 from sketchpy import canvas
 import requests
-from PIL import Image
 global square
 import customtkinter
 
@@ -21,6 +20,7 @@ turtle.colormode(255)
 screen = turtle.Screen()
 screen.setup(500, 500)
 fenetre = tkinter.Tk()
+fenetre.iconbitmap('./logo.ico')
 
 current_Lang = "fr"
 current_Color = "black"
@@ -56,77 +56,31 @@ class CalculDeMath():
 def nb1():
   #Fait des calculs (1er chiffre)
   nbr = tkinter.Toplevel(fenetre)
-  nbr.title("1er chiffre")
+  nbr.title("Calculatrice")
   nbr.geometry("300x100")
   canvas1 = tkinter.Canvas(nbr, width=50, height=50)
   canvas1.pack()
-  entry1 = tkinter.Entry(nbr)
+  entry1 = customtkinter.CTkEntry(nbr)
   canvas1.create_window(0, 10, window=entry1)
 
-  def change_nbr():
-    global nbr1
-    if(entry1.get() == "ANS"):
-      nbr1 = result
+  def calculate():
+    args = entry1.get().split(" ")
+    if args[1] == '+':
+       answer = customtkinter.CTkButton(nbr, text=str(CalculDeMath.addition(int(args[0]), int(args[2]))))
+       answer.pack(pady=5)
+    elif args[1] == '-':
+       answer = customtkinter.CTkButton(nbr, text=str(CalculDeMath.soustraction(int(args[0]), int(args[2]))))
+       answer.pack(pady=5)
+    elif args[1] == '*':
+       answer = customtkinter.CTkButton(nbr, text=str(CalculDeMath.multiplication((int(args[0]), int(args[2])))))
+       answer.pack(pady=5)
+    elif args[1] == '/':
+       answer = customtkinter.CTkButton(nbr, text=str(CalculDeMath.division(int(args[0]), int(args[2]))))
+       answer.pack(pady=5)
     else:
-      nbr1 = int(entry1.get())
-    nbr.destroy()
-    nb2()
-
-  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
-  ChangeButton.pack()
-
-
-def nb2():
-  #Fait des calculs (2e chiffre)
-  nbr = tkinter.Toplevel(fenetre)
-  nbr.title("2e chiffre")
-  nbr.geometry("300x100")
-  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
-  canvas1.pack()
-  entry1 = tkinter.Entry(nbr)
-  canvas1.create_window(0, 10, window=entry1)
-
-  def change_nbr():
-    global nbr2
-    if(entry1.get() == "ANS"):
-      nbr2 = result
-    else:
-      nbr2 = int(entry1.get())
-    nbr.destroy()
-    method()
-
-  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
-  ChangeButton.pack()
-
-
-def method():
-  #Fait des calculs (method)
-  nbr = tkinter.Toplevel(fenetre)
-  nbr.title("Méthode")
-  nbr.geometry("300x100")
-  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
-  canvas1.pack()
-  entry1 = tkinter.Entry(nbr)
-  canvas1.create_window(0, 10, window=entry1)
-
-  def change_nbr():
-    global nbr1
-    global nbr2
-    global result
-    metod = entry1.get()
-    if metod == "+":
-      result = CalculDeMath.addition(nbr1, nbr2)
-    elif metod == "-":
-      result = CalculDeMath.soustraction(nbr1, nbr2)
-    elif metod == "*":
-      result = CalculDeMath.multiplication(nbr1, nbr2)
-    elif metod == "/":
-      result = CalculDeMath.division(nbr1, nbr2)
-    answer = tkinter.Button(nbr, text=result)
-    answer.pack()
-    entry1.delete(0, 'end')
-
-  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+       Error = customtkinter.CTkButton(nbr, text="Error", command=calculate)
+       Error.pack(pady=5)
+  ChangeButton = customtkinter.CTkButton(nbr, text="Entrer", command=calculate)
   ChangeButton.pack()
 
 def grid():
@@ -141,7 +95,9 @@ def grid():
         t.left(90)
       t.forward(50)
     hauteur += 50
+  t.penup()
   t.goto(0, 0)
+  t.pendown()
 
 def forw():
   #Change la couleur
@@ -640,6 +596,9 @@ def generate_button_fr():
   brot = customtkinter.CTkButton(text="Angle par défaut",master=fenetre, corner_radius=10, command=rotation)
   brot.pack(pady=5, anchor=tkinter.CENTER)
 
+  bgrid = customtkinter.CTkButton(text="Grille",master=fenetre, corner_radius=10, command=grid)
+  bgrid.pack(pady=5, anchor=tkinter.CENTER)
+
   bgoto = customtkinter.CTkButton(text="Aller à",master=fenetre, corner_radius=10, command=goto)
   bgoto.pack(pady=5, anchor=tkinter.CENTER)
 
@@ -718,6 +677,9 @@ def generate_button_en():
   brot = customtkinter.CTkButton(text="Reset Angle",master=fenetre, corner_radius=10, command=rotation)
   brot.pack(pady=5, anchor=tkinter.CENTER)
 
+  bgrid = customtkinter.CTkButton(text="Grid",master=fenetre, corner_radius=10, command=grid)
+  bgrid.pack(pady=5, anchor=tkinter.CENTER)
+  
   bgoto = customtkinter.CTkButton(text="Move",master=fenetre, corner_radius=10, command=goto)
   bgoto.pack(pady=5, anchor=tkinter.CENTER)
 
